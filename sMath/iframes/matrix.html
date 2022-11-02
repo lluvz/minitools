@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>math test</title>
+	<script src="../jss/Matrix.js"></script>
+    <script src="../jss/matrix_dom.js"></script>
+    <script src="../jss/symbolMath.js"></script>
+    <style>
+        body{
+            color:aliceblue;
+            background-color: midnightblue;
+        }
+        input{
+            color:aliceblue;
+            background-color: cornflowerblue;
+            border-style: solid;
+            border-color: aliceblue;
+            border:2px;
+            margin:2px;
+        }
+        button{
+            font-size: large;
+            margin:2px;
+            border-radius: 3px;
+        }
+        .content{
+            color:aliceblue;
+            background-color: cornflowerblue;
+            border-color: aliceblue;
+        }
+    </style>
+</head>
+<body>
+    <button onclick="newMatrix()" class="content">&nbsp;+&nbsp;</button>
+    <button onclick="deleteMatrix()" class="content">&nbsp;-&nbsp;</button>
+    <span id="matricesNames" class="content"></span>
+    <div id="matrices"></div>
+    <script>
+        //initiate
+        let M=new Matrix();
+        let m,ms1,ms2;
+        let MD=new MatrixDom();
+        let width=height=3;
+
+        //html
+        let EmatricesNames=document.getElementById('matricesNames');
+        let Ematrices=document.getElementById('matrices');
+        let defaultMatrixNameCount=1;
+        let matrices=[];
+        function newMatrix(){
+            let complete=MD.createComplete(width,height,'M'+defaultMatrixNameCount);
+            matrices.push(complete);
+            Ematrices.appendChild(complete.whole);
+            let EmatrixName=document.createElement('span');
+            EmatrixName.textContent='M'+defaultMatrixNameCount+' ';
+            EmatricesNames.appendChild(EmatrixName);
+            defaultMatrixNameCount++;
+        }
+        function deleteMatrix(){
+
+        }
+        newMatrix();
+
+        //animate
+        function react(){
+            for(let i=0;i<matrices.length;i++){
+                MD.reactComplete(matrices[i]);
+            }
+        }
+        window.addEventListener('keydown',function(){setTimeout(react,1)});
+    </script>
+</body>
+</html>
